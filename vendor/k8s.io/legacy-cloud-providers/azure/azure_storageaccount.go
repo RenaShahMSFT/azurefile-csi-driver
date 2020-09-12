@@ -151,10 +151,12 @@ func (az *Cloud) EnsureStorageAccount(accountOptions *AccountOptions, genAccount
 					Action:                   storage.Allow,
 				}
 				virtualNetworkRules = append(virtualNetworkRules, vnetRule)
+				klog.V(4).Infof("subnetID(%s) has been set", subnetID)
 			}
 			if len(virtualNetworkRules) > 0 {
 				networkRuleSet = &storage.NetworkRuleSet{
 					VirtualNetworkRules: &virtualNetworkRules,
+					DefaultAction:       storage.DefaultActionDeny,
 				}
 			}
 
